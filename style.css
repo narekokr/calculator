@@ -28,9 +28,6 @@
     grid-template-columns: repeat(4, 250px);
     grid-template-rows: repeat(5, 90px);
 }
-#controls > * {
-    /* border: 1px solid black; */
-}
 button{
     display: block;
     width: 100%;

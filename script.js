@@ -5,9 +5,10 @@ const divide = (a,b) => a/b;
 const percent = (a,b) => a%b;
 const bar = document.querySelector('#bar');
 const prev = document.querySelector('#prev');
-let currentValue;
+let currentValue = [];
 let operand;
-let operation;
+let operation = [];
+let n = 0;
 const operate = (op,a,b) => {
     switch(op){
         case '+':
@@ -25,21 +26,34 @@ const operate = (op,a,b) => {
 
 const update = e => {
     bar.textContent += e.target.textContent;
-    currentValue = bar.textContent / 1;
-    console.log(currentValue);
+    currentValue[n] = bar.textContent / 1;
 }
 const oper = e => {
-    operation = e.target.textContent;
-    operand = currentValue;
+    operation[n] = e.target.textContent;
+    operand = currentValue[n];
     prev.textContent = operand;
     bar.textContent = '';
-    console.log(currentValue);
+    n++;
 }
 const calculate = e => {
-    const value = operate(operation, operand,currentValue);
+    console.log(currentValue);
+    for(let i = 0; i< currentValue.length -1;i++){
+        currentValue[i+1] = operate(operation[i],currentValue[i],currentValue[i+1]);
+    }
+    const value = currentValue[currentValue.length - 1];
     bar.textContent = value;
-    currentValue = value;
-}
+    currentValue = [];
+    operation = [];
+    n = 0;
+};
+const reset = () => {
+    bar.textContent = '';
+    prev.textContent ='';
+    operand = 0;
+    currentValue = [];
+    operation = [];
+    n = 0;
+};
 
 const digits = Array.from(document.querySelectorAll('.digit > *'));
 digits.forEach(btn => btn.addEventListener('click',update));
@@ -51,17 +65,12 @@ const equal = document.querySelectorAll('.equal > *');
 equal.forEach(btn => btn.addEventListener('click', calculate));
 
 const clear = document.querySelector('#clear > *');
-clear.addEventListener('click', () => {
-    bar.textContent = '';
-    prev.textContent ='';
-    operand = 0;
-    currentValue = 0;
-});
+clear.addEventListener('click', reset);
 
 const deletebtn = document.querySelector('#delete > *');
 deletebtn.addEventListener('click', () => {
     let temp = bar.textContent.replace(bar.textContent[bar.textContent.length -1], '');
     bar.textContent = temp
-    currentValue = temp / 1;
+    currentValue[n] = temp / 1;
     console.log('hi');
 });
