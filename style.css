@@ -32,13 +32,16 @@ body{
     grid-template-columns: repeat(4, 250px);
     grid-template-rows: repeat(5, 90px);
 }
+#controls > div {
+    background-color: #0099ff;
+}
 button{
     display: block;
     width: 100%;
     height: 100%;
     border: 1px solid black;
     color: white;
-    background-color: #0099ff;
+    background-color: transparent;
 }
 #clear button {
     color: red;
@@ -51,12 +54,12 @@ button{
     color: red;
 }
 
-.operation button, .equal button{
-    background-color: #ff9f0b;
+.operation, .equal{
+    background-color: #ff9f0b !important;
 }
-.digit button, #point button {
-    background-color: #605f60;
+.digit, #point{
+    background-color: #605f60 !important;
 }
-#percent button {
-    background-color: #0099ff;
+#percent {
+    background-color: #0099ff !important;
 }
