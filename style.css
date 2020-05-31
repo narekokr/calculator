@@ -3,6 +3,10 @@
     font-size: 30px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+body{
+    background-color: #2d2c2e;
+    color: white;
+}
 #calculator{
     width: 1000px;
     text-align: center;

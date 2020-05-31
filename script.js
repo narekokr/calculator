@@ -35,7 +35,7 @@ const oper = e => {
     bar.textContent = '';
     n++;
 }
-const calculate = e => {
+const calculate = () => {
     for(let i = 0; i< currentValue.length -1;i++){
         currentValue[i+1] = operate(operation[i],currentValue[i],currentValue[i+1]);
     }
@@ -44,6 +44,7 @@ const calculate = e => {
     currentValue = [];
     operation = [];
     n = 0;
+    currentValue[n] = value;
 };
 const reset = () => {
     bar.textContent = '';
@@ -52,6 +53,35 @@ const reset = () => {
     currentValue = [];
     operation = [];
     n = 0;
+};
+const deleteAction = () => {
+    let temp = bar.textContent.replace(bar.textContent[bar.textContent.length -1], '');
+    bar.textContent = temp
+    currentValue[n] = temp / 1;
+};
+const updateKey = (e) => {
+    const key = e.key;
+    if(key >= 0 || key < 10 || key === '.') {
+        bar.textContent += key;
+        currentValue[n] = bar.textContent / 1;
+    }
+    if(key === '*' || key === '/' || key === '+' || key === '-' || key === '%'){
+        operation[n] = key;
+        operand = currentValue[n];
+        prev.textContent = operand;
+        bar.textContent = '';
+        n++;
+    }
+    if(key === '=' || key ==='Enter'){
+        calculate();
+    }
+    if(key === 'Backspace'){
+        deleteAction();
+    }
+    if(key === 'Escape') {
+        reset();
+    }
+
 };
 window.addEventListener('click', () =>{
     if(bar.textContent.includes('.')) point.removeEventListener('click',update);
@@ -71,8 +101,6 @@ const clear = document.querySelector('#clear > *');
 clear.addEventListener('click', reset);
 
 const deletebtn = document.querySelector('#delete > *');
-deletebtn.addEventListener('click', () => {
-    let temp = bar.textContent.replace(bar.textContent[bar.textContent.length -1], '');
-    bar.textContent = temp
-    currentValue[n] = temp / 1;
-});
+deletebtn.addEventListener('click', deleteAction);
+
+window.addEventListener('keyup', updateKey);
