@@ -5,6 +5,7 @@ const divide = (a,b) => a/b;
 const percent = (a,b) => a%b;
 const bar = document.querySelector('#bar');
 const prev = document.querySelector('#prev');
+const point = document.querySelector('#point');
 let currentValue = [];
 let operand;
 let operation = [];
@@ -23,7 +24,6 @@ const operate = (op,a,b) => {
             return percent(a,b);
     }
 };
-
 const update = e => {
     bar.textContent += e.target.textContent;
     currentValue[n] = bar.textContent / 1;
@@ -36,7 +36,6 @@ const oper = e => {
     n++;
 }
 const calculate = e => {
-    console.log(currentValue);
     for(let i = 0; i< currentValue.length -1;i++){
         currentValue[i+1] = operate(operation[i],currentValue[i],currentValue[i+1]);
     }
@@ -54,6 +53,10 @@ const reset = () => {
     operation = [];
     n = 0;
 };
+window.addEventListener('click', () =>{
+    if(bar.textContent.includes('.')) point.removeEventListener('click',update);
+    else point.addEventListener('click',update);
+});
 
 const digits = Array.from(document.querySelectorAll('.digit > *'));
 digits.forEach(btn => btn.addEventListener('click',update));
@@ -72,5 +75,4 @@ deletebtn.addEventListener('click', () => {
     let temp = bar.textContent.replace(bar.textContent[bar.textContent.length -1], '');
     bar.textContent = temp
     currentValue[n] = temp / 1;
-    console.log('hi');
 });

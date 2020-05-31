@@ -50,7 +50,7 @@ button{
 .operation button, .equal button{
     background-color: #ff9f0b;
 }
-.digit button {
+.digit button, #point button {
     background-color: #605f60;
 }
 #percent button {
